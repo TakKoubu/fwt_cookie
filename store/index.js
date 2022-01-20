@@ -20,8 +20,8 @@ const createStore = () => {
         );
         state.loadedPosts[postIndex] = editedPost;
       },
-      deletePost(state, post) {
-        state.loadedPosts.slice(post.id,1);
+      deletePost(state, deletepost) {
+        state.loadedPosts.slice(deletepost.id,1);
       }, 
       setToken(state, token) {
         state.token = token;
@@ -76,8 +76,10 @@ const createStore = () => {
       deletePost(vuexContext, deletedPost) {
         return this.$axios
         .$delete(
-          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts.json?auth=" +
-            vuexContext.state.token,
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          deletedPost.id +
+          ".json?auth=" +
+          vuexContext.state.token,
           deletedPost
         )
           .then(res => {
