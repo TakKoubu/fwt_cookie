@@ -5,16 +5,27 @@
     <AppControlInput v-model="editedPost.thumbnail">Thumbnail Link</AppControlInput>
     <AppControlInput
       control-type="textarea"
-      v-model="editedPost.content">Content</AppControlInput>
+      v-model="editedPost.content">Content
+    </AppControlInput>
     <AppControlInput
       control-type="textarea"
-      v-model="editedPost.previewText">Preview Text</AppControlInput>
+      v-model="editedPost.previewText">Preview Text
+    </AppControlInput>
     <AppButton type="submit">Save</AppButton>
     <AppButton
       type="button"
       style="margin-left: 10px"
       btn-style="cancel"
-      @click="onCancel">Cancel</AppButton>
+      @click="onCancel">
+      Cancel
+    </AppButton>
+    <AppButton
+      type="button"
+      style="margin-left: 10px"
+      btn-style="cancel"
+      @click="onDelete">
+      Delete
+    </AppButton>
   </form>
 </template>
 
@@ -47,6 +58,9 @@ export default {
     onCancel() {
       // Navigate back
       this.$router.push("/admin");
+    },
+    onDelete(){
+     this.$emit('delete', this.editedPost)
     }
   }
 };
