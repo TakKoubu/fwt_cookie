@@ -1,9 +1,5 @@
 <template>
   <section class="post-list">
-    <TheHeader @sidenavToggle="displaySidenav = !displaySidenav" />
-    <TheSidenav
-      :show="displaySidenav"
-      @close="displaySidenav = false" />
     <PostPreview
       v-for="post in posts"
       :key="post.id"
