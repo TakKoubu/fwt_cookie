@@ -1,7 +1,7 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <AdminPostForm :post="loadedPost" @submit="onSubmitted" />
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted" @delete="onDeleted" />
     </section>
   </div>
 </template>
@@ -32,6 +32,11 @@ export default {
   methods: {
     onSubmitted(editedPost) {
       this.$store.dispatch("editPost", editedPost).then(() => {
+        this.$router.push("/admin");
+      });
+    },
+    onDeleted(editedPost) {
+      this.$store.dispatch("deletePost", editedPost).then(() => {
         this.$router.push("/admin");
       });
     }

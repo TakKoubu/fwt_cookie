@@ -20,7 +20,7 @@ const createStore = () => {
         );
         state.loadedPosts[postIndex] = editedPost;
       },
-      delatePost(state, post) {
+      deletePost(state, post) {
         state.loadedPosts.slice(post.id,1);
       }, 
       setToken(state, token) {
