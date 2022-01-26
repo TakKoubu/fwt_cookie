@@ -5,7 +5,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedPosts: [],
-      token: null
+      token: null,
     },
     mutations: {
       setPosts(state, posts) {
@@ -86,6 +86,56 @@ const createStore = () => {
             vuexContext.commit("deletePost", deletedPost);
           })
           .catch(e => console.log(e));
+      },
+      addLike(vuexContext, id) {
+        // loadedpostの中からidで特定する
+        const post = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const contentPost = vuexContext.state.loadedPosts[post]
+        contentPost.like++
+        // 特定したpostのlikeを変更する ++
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          contentPost
+        )
+          .catch(e => console.log(e));
+      },
+      addFavorite(vuexContext, id) {
+        const fvpost = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const favoritePost = vuexContext.state.loadedPosts[fvpost]
+        favoritePost.favorite = true
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          favoritePost
+        )
+        .catch(e => console.log(e));
+      },
+      notFavorite(vuexContext, id) {
+        const nfpost = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const notfavoritePost = vuexContext.state.loadedPosts[nfpost]
+        notfavoritePost.favorite = false
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          notfavoritePost
+        )
+        .catch(e => console.log(e));
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);

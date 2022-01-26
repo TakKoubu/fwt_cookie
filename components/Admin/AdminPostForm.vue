@@ -46,7 +46,9 @@ export default {
             title: "",
             thumbnail: "",
             content: "",
-            previewText: ""
+            previewText: "",
+            like: 0,
+            favorite: false
           }
     };
   },

@@ -16,6 +16,13 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isLogin: true,
+      email: "",
+      password: ""
+    };
+  },
   name: 'AppInputControl',
   props: {
     controlType: {
