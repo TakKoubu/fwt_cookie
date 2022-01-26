@@ -7,13 +7,38 @@
       <div class="post-content">
         <h1>{{ title }}</h1>
         <p>{{ previewText }}</p>
+  <div>
+    <nuxt-link :to="postLink" class="post-preview">
+      <article>
+        <div
+          class="post-thumbnail"
+          :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
+        <div class="post-content">
+          <h1>{{ title }}</h1>
+          <p>{{ previewText }}</p>
+        </div>
+      </article>
+    </nuxt-link>
+    <div class="btn_area">
+      <div>
+        <button 
+          @click="addLike"
+          class="btn like-btn"> 
+        </button>
+        <span class="like-count">{{ like }}いいね</span>
       </div>
     </article>
   </nuxt-link>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+    }
+  },
   name: 'PostPreview',
   props: {
     id: {
@@ -35,12 +60,22 @@ export default {
     thumbnail: {
       type: String,
       required: true
+    },
+    like: {
+      type: Number
+    },
     }
   },
   computed: {
     postLink() {
       return this.isAdmin ? '/admin/' + this.id : '/posts/' + this.id
     }
+  },
+  methods: {
+    addLike() {
+      this.$store.dispatch("addLike", this.id).then(() => {
+      });
+    },
   }
 }
 </script>
@@ -74,6 +109,7 @@ a {
 }
 
 .post-content {
+  display: inline-block;
   padding: 10px;
   text-align: center;
 }
@@ -81,5 +117,8 @@ a {
 a:hover .post-content,
 a:active .post-content {
   background-color: #ccc;
+}
+.btn-area {
+  display: inline-block;
 }
 </style>

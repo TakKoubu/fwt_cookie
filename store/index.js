@@ -6,6 +6,7 @@ const createStore = () => {
     state: {
       loadedPosts: [],
       token: null
+      token: null,
     },
     mutations: {
       setPosts(state, posts) {
@@ -60,6 +61,7 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editPost(vuexContext, editedPost) {
+        console.log(editedPost)
         return this.$axios
           .$put(
             "https://nuxt-blog.firebaseio.com/posts/" +
@@ -85,6 +87,24 @@ const createStore = () => {
           .then(res => {
             vuexContext.commit("deletePost", deletedPost);
           })
+          .catch(e => console.log(e));
+      },
+      addLike(vuexContext, id) {
+        // loadedpostの中からidで特定する
+        const post = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const contentPost = vuexContext.state.loadedPosts[post]
+        contentPost.like++
+        // 特定したpostのlikeを変更する ++
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          contentPost
+        )
           .catch(e => console.log(e));
       },
       setPosts(vuexContext, posts) {

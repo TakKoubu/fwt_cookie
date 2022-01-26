@@ -2,6 +2,7 @@
   <div class="admin-post-page">
     <section class="update-form">
       <AdminPostForm :post="loadedPost" @submit="onSubmitted" @delete="onDeleted" />
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted" @delete="onDeleted"/>
     </section>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default {
         this.$router.push("/admin");
       });
     }
+    },
   }
 };
 </script>
