@@ -111,7 +111,6 @@ const createStore = () => {
           post => post.id === id
         );
         const favoritePost = vuexContext.state.loadedPosts[fvpost]
-        console.log(favoritePost)
         favoritePost.favorite = true
         return this.$axios
         .$put(
