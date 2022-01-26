@@ -48,6 +48,7 @@ export default {
             content: "",
             previewText: ""
             previewText: "",
+            like: 0,
           }
     };
   },

@@ -19,9 +19,18 @@
         </div>
       </article>
     </nuxt-link>
+    <div class="btn_area">
+      <div>
+        <button 
+          @click="addLike"
+          class="btn like-btn"> 
+        </button>
+        <span class="like-count">{{ like }}いいね</span>
       </div>
     </article>
   </nuxt-link>
+    </div>
+  </div>
 </template>
 
 <script>
