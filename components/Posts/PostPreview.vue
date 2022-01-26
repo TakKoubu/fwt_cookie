@@ -7,6 +7,18 @@
       <div class="post-content">
         <h1>{{ title }}</h1>
         <p>{{ previewText }}</p>
+  <div>
+    <nuxt-link :to="postLink" class="post-preview">
+      <article>
+        <div
+          class="post-thumbnail"
+          :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
+        <div class="post-content">
+          <h1>{{ title }}</h1>
+          <p>{{ previewText }}</p>
+        </div>
+      </article>
+    </nuxt-link>
       </div>
     </article>
   </nuxt-link>
@@ -14,6 +26,10 @@
 
 <script>
 export default {
+  data(){
+    return{
+    }
+  },
   name: 'PostPreview',
   props: {
     id: {
@@ -35,6 +51,7 @@ export default {
     thumbnail: {
       type: String,
       required: true
+    },
     }
   },
   computed: {
@@ -74,6 +91,7 @@ a {
 }
 
 .post-content {
+  display: inline-block;
   padding: 10px;
   text-align: center;
 }
@@ -81,5 +99,9 @@ a {
 a:hover .post-content,
 a:active .post-content {
   background-color: #ccc;
+}
+
+.btn-area {
+  display: inline-block;
 }
 </style>

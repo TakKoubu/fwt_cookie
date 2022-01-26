@@ -47,6 +47,7 @@ export default {
             thumbnail: "",
             content: "",
             previewText: ""
+            previewText: "",
           }
     };
   },
