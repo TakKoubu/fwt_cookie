@@ -26,6 +26,16 @@
           class="btn like-btn"> 
         </button>
         <span class="like-count">{{ like }}いいね</span>
+        <button
+          v-if="!favorite"
+          @click="addfavorite(id)">
+          <p>お気に入り登録</p>
+        </button>
+        <button
+          v-if="favorite"
+          @click="notfavorite(id)">
+          <p>お気に入り解除</p>
+        </button>
       </div>
     </article>
   </nuxt-link>
@@ -34,6 +44,7 @@
 </template>
 
 <script>
+
 export default {
   data(){
     return{
@@ -64,6 +75,8 @@ export default {
     like: {
       type: Number
     },
+    favorite: {
+      type: Boolean
     }
   },
   computed: {
@@ -76,6 +89,12 @@ export default {
       this.$store.dispatch("addLike", this.id).then(() => {
       });
     },
+    addfavorite(id) {
+      this.$store.dispatch('addFavorite', id)
+    },
+    notfavorite(id) {
+      this.$store.dispatch('notFavorite', id)
+    }
   }
 }
 </script>
@@ -118,6 +137,7 @@ a:hover .post-content,
 a:active .post-content {
   background-color: #ccc;
 }
+
 .btn-area {
   display: inline-block;
 }

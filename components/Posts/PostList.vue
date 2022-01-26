@@ -8,6 +8,7 @@
       :thumbnail="post.thumbnail"
       :title="post.title"
       :like="post.like"
+      :favorite="post.favorite"
       :previewText="post.previewText" />
   </section>
 </template>

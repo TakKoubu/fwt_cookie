@@ -49,6 +49,7 @@ export default {
             previewText: ""
             previewText: "",
             like: 0,
+            favorite: false
           }
     };
   },
