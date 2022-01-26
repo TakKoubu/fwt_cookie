@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import Cookie from "js-cookie";
+import { getAuth } from "firebase/auth";
 
 const createStore = () => {
   return new Vuex.Store({
@@ -106,6 +107,10 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       addFavorite(vuexContext, id) {
+        const auth = getAuth();
+        console.log(auth)
+        const user = auth.currentUser;
+        console.log(user)
         const fvpost = vuexContext.state.loadedPosts.findIndex(
           post => post.id === id
         );
