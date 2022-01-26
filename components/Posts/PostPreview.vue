@@ -1,12 +1,4 @@
 <template>
-  <nuxt-link :to="postLink" class="post-preview">
-    <article>
-      <div
-        class="post-thumbnail"
-        :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
-      <div class="post-content">
-        <h1>{{ title }}</h1>
-        <p>{{ previewText }}</p>
   <div>
     <nuxt-link :to="postLink" class="post-preview">
       <article>
@@ -26,14 +18,23 @@
           class="btn like-btn"> 
         </button>
         <span class="like-count">{{ like }}いいね</span>
+        <button
+          v-if="!favorite"
+          @click="addfavorite(id)">
+          <p>お気に入り登録</p>
+        </button>
+        <button
+          v-if="favorite"
+          @click="notfavorite(id)">
+          <p>お気に入り解除</p>
+        </button>
       </div>
-    </article>
-  </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data(){
     return{
@@ -61,11 +62,28 @@ export default {
       type: String,
       required: true
     },
+    like: {
+      type: Number
+    },
+    favorite: {
+      type: Boolean
     }
   },
   computed: {
     postLink() {
       return this.isAdmin ? '/admin/' + this.id : '/posts/' + this.id
+    }
+  },
+  methods: {
+    addLike() {
+      this.$store.dispatch("addLike", this.id).then(() => {
+      });
+    },
+    addfavorite(id) {
+      this.$store.dispatch('addFavorite', id)
+    },
+    notfavorite(id) {
+      this.$store.dispatch('notFavorite', id)
     }
   }
 }

@@ -5,7 +5,6 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedPosts: [],
-      token: null
       token: null,
     },
     mutations: {
@@ -106,6 +105,39 @@ const createStore = () => {
           contentPost
         )
           .catch(e => console.log(e));
+      },
+      addFavorite(vuexContext, id) {
+        const fvpost = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const favoritePost = vuexContext.state.loadedPosts[fvpost]
+        console.log(favoritePost)
+        favoritePost.favorite = true
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          favoritePost
+        )
+        .catch(e => console.log(e));
+      },
+      notFavorite(vuexContext, id) {
+        const nfpost = vuexContext.state.loadedPosts.findIndex(
+          post => post.id === id
+        );
+        const notfavoritePost = vuexContext.state.loadedPosts[nfpost]
+        notfavoritePost.favorite = false
+        return this.$axios
+        .$put(
+          "https://nuxt-auth-d4b8b-default-rtdb.firebaseio.com/posts/" +
+          id +
+          ".json?auth=" + 
+          vuexContext.state.token,
+          notfavoritePost
+        )
+        .catch(e => console.log(e));
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
