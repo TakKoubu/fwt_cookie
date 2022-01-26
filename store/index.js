@@ -60,7 +60,6 @@ const createStore = () => {
           .catch(e => console.log(e));
       },
       editPost(vuexContext, editedPost) {
-        console.log(editedPost)
         return this.$axios
           .$put(
             "https://nuxt-blog.firebaseio.com/posts/" +
